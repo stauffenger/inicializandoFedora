@@ -1,12 +1,12 @@
 dnf install wget -y;
 
 #add repos
-
+echo 'Adicionando repositorios...';
 #postgress
-dnf install https://download.postgresql.org/pub/repos/yum/reporpms/F-31-x86_64/pgdg-fedora-repo-latest.noarch.rpm;
+dnf install -q https://download.postgresql.org/pub/repos/yum/reporpms/F-31-x86_64/pgdg-fedora-repo-latest.noarch.rpm;
 
 #rpm fusion
-dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm;
+dnf install -q https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm;
 
 
 #sublime text
@@ -28,12 +28,36 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 #install programs
 
 #nivida driver
-dnf install -y nvidia-driver nvidia-driver-libs.i686 nvidia-settings akmod-nvidia cuda nvidia-driver-cuda;
+echo 'Instalando drivers Nvidia';
+dnf install -yq nvidia-driver nvidia-driver-libs.i686 nvidia-settings akmod-nvidia cuda nvidia-driver-cuda --allowerasing --best ;
+
+echo 'Instalando programas via dnf';
+dnf install -y telegram-desktop code stacer sublime-text codeblocks krita pgadmin3 pgadmin4 vlc* gimp blender npm golang steam*;
+
+echo 'Instalando programas via npm';
+npm i -g npm;
+npm i -g yarn;
+
+echo 'Instalando programas via flatpak';
+flatpak install -y flathub com.spotify.Client --noninteractive;
+
+flatpak install -y flathub org.DolphinEmu.dolphin-emu --noninteractive;
+
+flatpak install -y flathub com.discordapp.Discord --noninteractive;
+
+flatpak install -y flathub com.wps.Office --noninteractive;
+
+flatpak install -y flathub com.google.AndroidStudio --noninteractive;
+
+echo 'Iniciando download de Mega e Google Chrome';
+wget -c https://mega.nz/linux/MEGAsync/Fedora_31/x86_64/megasync-Fedora_31.x86_64.rpm ;
+
+wget -c https://mega.nz/linux/MEGAsync/Fedora_31/x86_64/nemo-megasync-Fedora_31.x86_64.rpm;
+
+wget -c https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm;
+
+echo 'Instalando Mega e Google Chrome... ';
+dnf install -yq megasync-Fedora_31.x86_64.rpm nemo-megasync-Fedora_31.x86_64.rpm google-chrome-stable_current_x86_64.rpm;
 
 
-dnf install -y telegram spotify vscode sublime-text codeblocks npm golang steam*;
-
-
-flatpak install org.DolphinEmu.dolphin-emu;
-
-flatpak install com.wps.Office;
+echo 'Fim do Script Inicializando Fedora'
