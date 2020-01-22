@@ -3,15 +3,15 @@ dnf install wget -y;
 #add repos
 echo 'Adicionando repositorios...';
 #postgress
-dnf install -q https://download.postgresql.org/pub/repos/yum/reporpms/F-31-x86_64/pgdg-fedora-repo-latest.noarch.rpm;
+dnf install -yq https://download.postgresql.org/pub/repos/yum/reporpms/F-31-x86_64/pgdg-fedora-repo-latest.noarch.rpm;
 
 #rpm fusion
-dnf install -q https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm;
+dnf install -yq https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm;
 
 
 #sublime text
-rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg;
-dnf config-manager --add-repo https://download.sublimetext.com/rpm/dev/x86_64/sublime-text.repo;
+rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
+dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
 
 #vscode
 rpm --import https://packages.microsoft.com/keys/microsoft.asc;
@@ -23,6 +23,7 @@ dnf config-manager --add-repo=https://negativo17.org/repos/fedora-nvidia.repo;
 dnf check-update;
 
 #add flatpak repo
+sudo dnf install -yq flatpak
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo;
 
 #install programs
