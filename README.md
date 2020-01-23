@@ -6,13 +6,13 @@ Após a execução do script executar o comando abaixo, selecionar português(Br
 $ system-config-language
 ```
 
-##Configurando vscode
+## Configurando vscode
 ```shell
 $ code --install-extension teabyii.ayu 
 
 $ echo '{ "workbench.iconTheme": "ayu", "workbench.colorTheme": "Ayu Mirage", "editor.fontFamily": "Fira Code Retina","editor.formatOnType": true,"editor.fontLigatures": true,"explorer.confirmDelete": false}' >> /home/$USER/.config/Code/User/settings.json
 ```
-##Configurando Subllime Text
+## Configurando Subllime Text
 > Instale primeiramente o Package Control e o tema Ayu pelo Package Control
 
 ```shell
