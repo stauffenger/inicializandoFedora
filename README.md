@@ -10,7 +10,14 @@ $ system-config-language
 ```shell
 $ code --install-extension teabyii.ayu 
 
-$ echo '{ "workbench.iconTheme": "ayu", "workbench.colorTheme": "Ayu Mirage", "editor.fontFamily": "Fira Code Retina","editor.formatOnType": true,"editor.fontLigatures": true,"explorer.confirmDelete": false}' >> /home/$USER/.config/Code/User/settings.json
+$ echo '{ 
+	"workbench.iconTheme": "ayu",
+	 "workbench.colorTheme": "Ayu Mirage",
+	  "editor.fontFamily": "Fira Code Retina",
+	  "editor.formatOnType": true,
+	  "editor.fontLigatures": true,
+	  "explorer.confirmDelete": false
+	  }' >> /home/$USER/.config/Code/User/settings.json
 ```
 ## Configurando Subllime Text
 > Instale primeiramente o Package Control e o tema Ayu pelo Package Control
