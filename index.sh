@@ -33,7 +33,7 @@ echo 'Instalando drivers Nvidia';
 dnf install -yq nvidia-driver nvidia-driver-libs.i686 nvidia-settings akmod-nvidia cuda nvidia-driver-cuda --allowerasing --best ;
 
 echo 'Instalando programas via dnf';
-dnf install -yq telegram-desktop code stacer nano fira-code-fonts flat-remix-theme flat-remix-*-theme system-config-language sublime-text numlockx codeblocks krita pgadmin3 pgadmin4 vlc* gimp blender npm golang steam*;
+dnf install -yq telegram-desktop code stacer nano fira-code-fonts flat-remix-theme flat-remix-*-theme rabbitvcs* system-config-language sublime-text numlockx codeblocks krita pgadmin3 pgadmin4 vlc* gimp blender npm golang steam*;
 dnf groupinstall -yq 'PostgreSQL Database Server 10 PGDG' --with-optional;
 
 echo 'Instalando programas via npm';
