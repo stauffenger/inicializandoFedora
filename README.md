@@ -35,3 +35,5 @@ $ echo '{
 	"env": {"LD_PRELOAD": null}
 }' >> /home/$USER/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
 ```
+
+>Documentação do [Postgres](https://fedoraproject.org/wiki/PostgreSQL, 'https://fedoraproject.org/') pro Fedora
