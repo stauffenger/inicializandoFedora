@@ -34,12 +34,12 @@ dnf install -yq nvidia-driver nvidia-driver-libs.i686 nvidia-settings akmod-nvid
 
 echo 'Instalando programas via dnf';
 dnf install -yq telegram-desktop code stacer nano fira-code-fonts flat-remix-theme flat-remix-*-theme rabbitvcs* system-config-language sublime-text numlockx codeblocks krita pgadmin3 pgadmin4 vlc* gimp blender npm golang steam*;
-dnf groupinstall -yq 'PostgreSQL Database Server 10 PGDG' --with-optional;
+dnf groupinstall -yq 'PostgreSQL Database Server 12 PGDG' --with-optional;
 
-echo 'Inicializando a configuração Postgres 10';
-/usr/pgsql-10/bin/postgresql-10-setup initdb;
-systemctl enable postgresql-10;
-systemctl start postgresql-10;
+echo 'Inicializando a configuração Postgres 12';
+/usr/pgsql-12/bin/postgresql-12-setup initdb;
+systemctl enable postgresql-12;
+systemctl start postgresql-12;
 
 echo 'Instalando programas via npm';
 npm i -g npm;
