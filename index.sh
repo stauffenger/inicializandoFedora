@@ -36,6 +36,11 @@ echo 'Instalando programas via dnf';
 dnf install -yq telegram-desktop code stacer nano fira-code-fonts flat-remix-theme flat-remix-*-theme rabbitvcs* system-config-language sublime-text numlockx codeblocks krita pgadmin3 pgadmin4 vlc* gimp blender npm golang steam*;
 dnf groupinstall -yq 'PostgreSQL Database Server 10 PGDG' --with-optional;
 
+echo 'Inicializando a configuração Postgres 10';
+/usr/pgsql-10/bin/postgresql-10-setup initdb;
+systemctl enable postgresql-10;
+systemctl start postgresql-10;
+
 echo 'Instalando programas via npm';
 npm i -g npm;
 npm i -g yarn;
