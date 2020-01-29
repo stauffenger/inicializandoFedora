@@ -36,4 +36,4 @@ $ echo '{
 }' >> /home/$USER/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
 ```
 
->Documentação do [Postgres](https://www.postgresql.org/download/linux/redhat/, 'https://www.postgresql.org/') pro Fedora
+>[Documentação do Postgres](https://www.postgresql.org/download/linux/redhat/, 'https://www.postgresql.org/') pro Fedora e a [Documentação de configuração do Fedora](https://fedoraproject.org/wiki/PostgreSQL#Configuration, 'https://fedoraproject.org/wiki/PostgreSQL#Configuration')
