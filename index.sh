@@ -1,27 +1,5 @@
 #!/bin/bash
 
-#variaveis
-configPgadmin = "# pgAdmin VirtualHost
-LoadModule wsgi_module modules/mod_wsgi.so
-WSGIDaemonProcess pgadmin processes=1 threads=25
-WSGIScriptAlias /pgadmin4 /usr/lib/python3.7/site-packages/pgadmin4-web/pgAdmin4.wsgi
-
-<Directory /usr/lib/python3.7/site-packages/pgadmin4-web/>
-	WSGIProcessGroup pgadmin
-	WSGIApplicationGroup %{GLOBAL}
-	<IfModule mod_authz_core.c>
-		# Apache 2.4
-		Require all granted
-	</IfModule>
-	<IfModule !mod_authz_core.c>
-		# Apache 2.2
-		Order Deny,Allow
-		Deny from All
-		Allow from 127.0.0.1
-		Allow from ::1
-	</IfModule>
-</Directory>"
-
 dnf install wget -y;
 
 #add repos
@@ -66,12 +44,14 @@ systemctl enable postgresql-12;
 systemctl start postgresql-12;
 systemctl start httpd; 
 systemctl enable httpd;
-echo $configPgadmin >> /etc/httpd/conf.d/pgadmin4.conf;
+cp ./exempl /etc/httpd/conf.d/pgadmin4.conf;
+systemctl restart httpd;
 mkdir -p /var/lib/pgadmin4/ /var/log/pgadmin4/;
 echo "LOG_FILE = '/var/log/pgadmin4/pgadmin4.log'
 SQLITE_PATH = '/var/lib/pgadmin4/pgadmin4.db'
 SESSION_DB_PATH = '/var/lib/pgadmin4/sessions'
 STORAGE_DIR = '/var/lib/pgadmin4/storage'" > /usr/lib/python3.7/site-packages/pgadmin4-web/config_distro.py;
+python3 /usr/lib/python3.7/site-packages/pgadmin4-web/setup.py;
 chown -R apache:apache /var/lib/pgadmin4 /var/log/pgadmin4;
 semanage fcontext -a -t httpd_sys_rw_content_t "/var/lib/pgadmin4(/.*)?";
 semanage fcontext -a -t httpd_sys_rw_content_t "/var/log/pgadmin4(/.*)?";
