@@ -20,7 +20,7 @@ rpm --import https://packages.microsoft.com/keys/microsoft.asc;
 sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo';
 
 #nvidia(negative 17)
-dnf config-manager --add-repo=https://negativo17.org/repos/fedora-nvidia.repo;
+#dnf config-manager --add-repo=https://negativo17.org/repos/fedora-nvidia.repo;
 
 dnf check-update;
 
@@ -31,17 +31,17 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 #install programs
 
 #nivida driver
-echo 'Instalando drivers Nvidia';
-dnf install -yq nvidia-driver nvidia-driver-libs.i686 nvidia-settings akmod-nvidia cuda nvidia-driver-cuda --allowerasing --best ;
+#echo 'Instalando drivers Nvidia';
+#dnf install -yq nvidia-driver nvidia-driver-libs.i686 nvidia-settings akmod-nvidia cuda nvidia-driver-cuda --allowerasing --best ;
 
 echo 'Instalando programas via dnf';
-dnf install -yq telegram-desktop code stacer nano fira-code-fonts flat-remix-theme flat-remix-*-theme rabbitvcs* system-config-language sublime-text numlockx codeblocks krita pgadmin3 pgadmin4 vlc* gimp blender npm golang steam*;
-dnf groupinstall -yq 'PostgreSQL Database Server 12 PGDG' --with-optional;
+dnf install -yq telegram-desktop code stacer nano fira-code-fonts xorg-x11-drv-amdgpu xorg-x11-drv-geode flat-remix-theme flat-remix-*-theme rabbitvcs* system-config-language sublime-text numlockx codeblocks krita pgadmin3 pgadmin4 vlc* gimp blender npm golang steam*;
+dnf groupinstall -yq 'PostgreSQL Database Server 11 PGDG' --with-optional;
 
-echo 'Inicializando a configuração Postgres 12';
-/usr/pgsql-12/bin/postgresql-12-setup initdb;
-systemctl enable postgresql-12;
-systemctl start postgresql-12;
+echo 'Inicializando a configuração Postgres 11';
+/usr/pgsql-11/bin/postgresql-11-setup initdb;
+systemctl enable postgresql-11;
+systemctl start postgresql-11;
 systemctl start httpd; 
 systemctl enable httpd;
 cp ./exempl /etc/httpd/conf.d/pgadmin4.conf;
@@ -76,15 +76,15 @@ flatpak install -y flathub com.wps.Office --noninteractive;
 
 flatpak install -y flathub com.google.AndroidStudio --noninteractive;
 
-echo 'Iniciando download de Mega e Google Chrome';
-wget -c https://mega.nz/linux/MEGAsync/Fedora_31/x86_64/megasync-Fedora_31.x86_64.rpm ;
+echo 'Iniciando download de Google Chrome';
+#wget -c https://mega.nz/linux/MEGAsync/Fedora_31/x86_64/megasync-Fedora_31.x86_64.rpm ;
 
-wget -c https://mega.nz/linux/MEGAsync/Fedora_31/x86_64/nemo-megasync-Fedora_31.x86_64.rpm;
+#wget -c https://mega.nz/linux/MEGAsync/Fedora_31/x86_64/nemo-megasync-Fedora_31.x86_64.rpm;
 
 wget -c https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm;
 
 echo 'Instalando Mega e Google Chrome... ';
-dnf install -yq megasync-Fedora_31.x86_64.rpm nemo-megasync-Fedora_31.x86_64.rpm google-chrome-stable_current_x86_64.rpm;
-
+#dnf install -yq megasync-Fedora_31.x86_64.rpm nemo-megasync-Fedora_31.x86_64.rpm google-chrome-stable_current_x86_64.rpm;
+dnf install -yq google-chrome-stable_current_x86_64.rpm;
 
 echo 'Fim do Script Inicializando Fedora'
