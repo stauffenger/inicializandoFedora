@@ -87,4 +87,11 @@ echo 'Instalando Mega e Google Chrome... ';
 #dnf install -yq megasync-Fedora_31.x86_64.rpm nemo-megasync-Fedora_31.x86_64.rpm google-chrome-stable_current_x86_64.rpm;
 dnf install -yq google-chrome-stable_current_x86_64.rpm;
 
+echo 'Instalando Tema Terminal';
+git clone https://github.com/Bash-it/bash-it.git /home/$USER/.bash-it/;
+chmod +x /home/$USER/.bash-it/install.sh;
+echo 'y' | sh /home/$USER/.bash-it/install.sh;
+cp ./bashrc /home/$USER/.bashrc ;
+cp ./bashrc /root/.bashrc ;
+
 echo 'Fim do Script Inicializando Fedora'
