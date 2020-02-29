@@ -36,12 +36,12 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 
 echo 'Instalando programas via dnf';
 dnf install -yq telegram-desktop code stacer nano fira-code-fonts xorg-x11-drv-amdgpu xorg-x11-drv-geode flat-remix-theme flat-remix-*-theme rabbitvcs* system-config-language sublime-text numlockx codeblocks krita pgadmin3 pgadmin4 vlc* gimp blender npm golang steam*;
-dnf groupinstall -yq 'PostgreSQL Database Server 11 PGDG' --with-optional;
+dnf groupinstall -yq 'PostgreSQL Database Server 10 PGDG' --with-optional;
 
-echo 'Inicializando a configuração Postgres 11';
-/usr/pgsql-11/bin/postgresql-11-setup initdb;
-systemctl enable postgresql-11;
-systemctl start postgresql-11;
+echo 'Inicializando a configuração Postgres 10';
+/usr/pgsql-10/bin/postgresql-10-setup initdb;
+systemctl enable postgresql-10;
+systemctl start postgresql-10;
 systemctl start httpd; 
 systemctl enable httpd;
 cp ./exempl /etc/httpd/conf.d/pgadmin4.conf;
