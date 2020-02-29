@@ -50,7 +50,7 @@ mkdir -p /var/lib/pgadmin4/ /var/log/pgadmin4/;
 echo "LOG_FILE = '/var/log/pgadmin4/pgadmin4.log'
 SQLITE_PATH = '/var/lib/pgadmin4/pgadmin4.db'
 SESSION_DB_PATH = '/var/lib/pgadmin4/sessions'
-STORAGE_DIR = '/var/lib/pgadmin4/storage'" > /usr/lib/python3.7/site-packages/pgadmin4-web/config_distro.py;
+STORAGE_DIR = '/var/lib/pgadmin4/storage'" >> /usr/lib/python3.7/site-packages/pgadmin4-web/config_distro.py;
 python3 /usr/lib/python3.7/site-packages/pgadmin4-web/setup.py;
 chown -R apache:apache /var/lib/pgadmin4 /var/log/pgadmin4;
 semanage fcontext -a -t httpd_sys_rw_content_t "/var/lib/pgadmin4(/.*)?";

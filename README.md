@@ -17,7 +17,7 @@ $ echo '{
 	  "editor.formatOnType": true,
 	  "editor.fontLigatures": true,
 	  "explorer.confirmDelete": false
-	  }' >> /home/$USER/.config/Code/User/settings.json
+	  }' > /home/$USER/.config/Code/User/settings.json
 ```
 ## Configurando Subllime Text
 > Instale primeiramente o Package Control e o tema Ayu pelo Package Control
@@ -33,7 +33,7 @@ $ echo '{
 	"font_face": "Fira Code Retina",
 	"terminal":"gnome-terminal",
 	"env": {"LD_PRELOAD": null}
-}' >> /home/$USER/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
+}' > /home/$USER/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
 ```
 
 >[Documentação do Postgres](https://www.postgresql.org/download/linux/redhat/, 'https://www.postgresql.org/') pro Fedora e a [Documentação de configuração do Fedora](https://fedoraproject.org/wiki/PostgreSQL#Configuration, 'https://fedoraproject.org/wiki/PostgreSQL#Configuration')
