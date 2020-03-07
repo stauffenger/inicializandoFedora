@@ -36,4 +36,4 @@ $ echo '{
 }' > /home/$USER/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
 ```
 
->[Documentação do Postgres](https://www.postgresql.org/download/linux/redhat/, 'https://www.postgresql.org/') pro Fedora e a [Documentação de configuração do Fedora](https://fedoraproject.org/wiki/PostgreSQL#Configuration, 'https://fedoraproject.org/wiki/PostgreSQL#Configuration')
+>[Documentação do Postgres](https://www.postgresql.org/download/linux/redhat/, 'https://www.postgresql.org/') pro Fedora e a [Documentação de configuração do Fedora](https://fedoraproject.org/wiki/PostgreSQL#Configuration, 'https://fedoraproject.org/wiki/PostgreSQL#Configuration') e um link que me ajudou a configurar o [pgadmin4](https://computingforgeeks.com/how-to-install-pgadmin-on-centos-fedora/, 'https://computingforgeeks.com/how-to-install-pgadmin-on-centos-fedora/')
