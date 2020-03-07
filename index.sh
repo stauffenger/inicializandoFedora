@@ -94,4 +94,10 @@ echo 'y' | sh /home/$USER/.bash-it/install.sh;
 cp ./bashrc /home/$USER/.bashrc ;
 cp ./bashrc /root/.bashrc ;
 
+#dnf install @kde-desktop || dnf swap @gnome-desktop @kde-desktop
+#dnf install switchdesk
+#dnf install system-switch-displaymanager
+#switchdesk kde
+#system-switch-displaymanager kdm
+
 echo 'Fim do Script Inicializando Fedora'
