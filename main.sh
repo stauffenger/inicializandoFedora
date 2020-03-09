@@ -24,9 +24,14 @@ function mensagem_de_erro () {
 }
 
 #Tratando argumentos recebidos
-if [ $# -gt 0 ]; then
+if [ $# ]; then
     if [ "$1" == "--only" ]; then
-        shift
+        if [ $# -gt 1 ]; then
+            shift
+        else
+            mensagem_de_erro empty ${1}
+            exit 1
+        fi
     else
         echo 'do something'
     fi
