@@ -81,6 +81,9 @@ function install_repositories () {
             install_repositories dev
             install_repositories social
             ;;
+        nvidia)
+            dnf config-manager --add-repo=https://negativo17.org/repos/fedora-nvidia.repo
+            ;;
     esac
     dnf check-update;
 }
@@ -148,6 +151,12 @@ function install_programs () {
         all)
             install_programs dev
             install_programs social
+            ;;
+        nvidia)
+            dnf install -yq nvidia-driver nvidia-driver-libs.i686 nvidia-settings akmod-nvidia cuda nvidia-driver-cuda --allowerasing --best
+            ;;
+        amd)
+            dnf install -yq xorg-x11-drv-amdgpu xorg-x11-drv-geode
             ;;
     esac
 }
@@ -217,11 +226,9 @@ while [ $# -gt 0 ]; do
             if [ "$2" ]; then
                 local gpu="$2"
                 case $gpu in
-                    nvidea) 
-                        echo 'nvidea'
-                        ;;
-                    amd) 
-                        echo 'amd'
+                    nvidea || amd) 
+                        install_repositories ${gpu}
+                        install_programs ${gpu}
                         ;;
                     *)
                         error_message invalid ${1}
