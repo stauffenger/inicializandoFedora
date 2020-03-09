@@ -6,7 +6,7 @@ set -o errexit
 function error_message () {
     if [ $# -gt 0 ]; then
         local errorType="$1"
-        case errorType in
+        case $errorType in
             invalid)
                 echo "ERROR: \"${2}\" invalid argument. Use \"--help\" to see all options."
                 ;;
@@ -55,7 +55,7 @@ function select_display_manager () {
 
 function install_repositories () {
     local repository="$1"
-    case repository in
+    case $repository in
         basic)
             #rpm fusion
             dnf install -yq https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
@@ -90,7 +90,7 @@ function install_repositories () {
 
 function install_programs () {
     local programs="$1"
-    case programs in
+    case $programs in
         basic)
             dnf install wget -yq
             dnf install -yq flatpak stacer system-config-language numlockx krita vlc* gimp
@@ -161,8 +161,8 @@ function install_programs () {
     esac
 }
 
-#Tratando argumentos recebidos
-if [ $# ]; then
+# Main
+if [ $# -gt 0 ]; then
     if [ "$1" == "--only" ]; then
         if [ $# -gt 1 ]; then
             shift
@@ -171,17 +171,31 @@ if [ $# ]; then
             exit 1
         fi
     else
-        install_repositories basic
-        install_programs basic
+        case "$1" in
+            -h | -\? | --help)
+                printf "
+#################################### help #########################################
+#                                                                                 #
+#       -d | --desktop-environment  <kde | gnome | cinnamon | mate | xfce>        #
+#       -g | --gpu <amd | nvidia>                                                 #
+#       -h | --help | \\\?                                                          #
+#          | --only                                                               #
+#       -o | --with-optional <dev | social>                                       #
+#       -t | --theme <abreu | pascoal>                                            #
+#                                                                                 #
+###################################################################################\n"
+                exit 0
+                ;;
+        esac
     fi
+else
+    #install_repositories basic
+    #install_programs basic
+    echo 'something'
 fi
 
 while [ $# -gt 0 ]; do
     case "$1" in
-        -h | -\? | --help)
-            echo 'help'
-            exit 0
-            ;;
         -t | --theme)
             if [ "$2" ]; then
                 local theme="$2"
@@ -226,7 +240,7 @@ while [ $# -gt 0 ]; do
             if [ "$2" ]; then
                 local gpu="$2"
                 case $gpu in
-                    nvidea || amd) 
+                    nvidea | amd) 
                         install_repositories ${gpu}
                         install_programs ${gpu}
                         ;;
@@ -245,22 +259,22 @@ while [ $# -gt 0 ]; do
             if [ "$2" ] && [ "$3" ]; then
                 local desktopEnvironment_1="$2"
                 local desktopEnvironment_2="$3"
-                case desktopEnvironment_1 in
+                case $desktopEnvironment_1 in
                     kde | gnome | cinnamon | mate | xfce)
-                        case desktopEnvironment_2 in
+                        case $desktopEnvironment_2 in
                             kde | gnome | cinnamon | mate | xfce)
-                                change_desktop_environment desktopEnvironment_1 desktopEnvironment_2
+                                change_desktop_environment ${desktopEnvironment_1} ${desktopEnvironment_2}
                                 shift
                                 shift
                                 ;;
                             *)
-                            error_message invalid desktopEnvironment_2
+                            error_message invalid ${desktopEnvironment_2}
                                 exit 1
                                 ;;
                         esac
                         ;;
                     *)
-                        error_message invalid desktopEnvironment_1
+                        error_message invalid ${desktopEnvironment_1}
                         exit 1
                         ;;
                 esac
