@@ -44,9 +44,6 @@ function select_display_manager () {
         gnome) 
             displayManager="gdm"
             ;;
-        cinnamon) 
-            displayManager="mdm"
-            ;;
         *) 
             displayManager="LightDM"
             ;;
