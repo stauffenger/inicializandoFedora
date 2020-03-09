@@ -23,6 +23,35 @@ function mensagem_de_erro () {
     fi
 }
 
+function change_desktop_environment () {
+    dnf swap @${1}-desktop-environment @${2}-desktop-environment
+    #https://docs.fedoraproject.org/en-US/quick-docs/switching-desktop-environments/
+    local display_manager=''
+    select_display_manager ${1}
+    display_manager_1=$display_manager
+    select_display_manager ${2}
+    display_manager_2=$display_manager
+    dnf swap ${display_manager_1} ${display_manager_2}
+}
+
+function select_display_manager () {
+    desktopEnvironment=$1
+    case "$desktopEnvironment" in
+        kde) 
+            display_manager="kdm"
+            ;;
+        gnome) 
+            display_manager="gdm"
+            ;;
+        cinnamon) 
+            display_manager="mdm"
+            ;;
+        *) 
+            display_manager="LightDM"
+            ;;
+    esac
+}
+
 #Tratando argumentos recebidos
 if [ $# ]; then
     if [ "$1" == "--only" ]; then
@@ -106,30 +135,26 @@ while [ $# -gt 0 ]; do
             fi
             ;;
         -d | --desktop-environment)
-            if [ "$2" ]; then
-                desktopEnvironment="$2"
-                case "$desktopEnvironment" in
-                    kde) 
-                        echo '@kde-desktop-environment / kdm'
-                        ;;
-                    gnome) 
-                        echo '@gnome-desktop-environment / gdm'
-                        ;;
-                    cinnamon) 
-                        echo '@cinnamon-desktop-environment / LightDM'
-                        ;;
-                    mate) 
-                        echo '@mate-desktop-environment / LightDM'
-                        ;;
-                    xfce) 
-                        echo '@xfce-desktop-environment / LightDM'
+            if [ "$2" ] && [ "$3" ]; then
+                case "$2" in
+                    kde | gnome | cinnamon | mate | xfce)
+                        case "$3" in
+                            kde | gnome | cinnamon | mate | xfce)
+                                change_desktop_environment ${2} ${3}
+                                shift
+                                shift
+                                ;;
+                            *)
+                            mensagem_de_erro invalid ${3}
+                                exit 1
+                                ;;
+                        esac
                         ;;
                     *)
-                        mensagem_de_erro invalid ${1}
+                        mensagem_de_erro invalid ${2}
                         exit 1
                         ;;
                 esac
-                shift
             else
                 mensagem_de_erro empty ${1}
                 exit 1
