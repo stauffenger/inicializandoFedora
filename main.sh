@@ -2,8 +2,29 @@
 
 set -o errexit
 
+#Funções
+function mensagem_de_erro () {
+    if [ $# -gt 0 ]; then
+        case "$1" in
+            invalid)
+                echo "ERROR: \"${2}\" invalid argument. Use \"--help\" to see all options."
+                ;;
+            empty)
+                echo "ERROR: \"${2}\" requires a non-empty option argument. Use \"--help\" to see all options."
+                ;;
+            *)
+                mensagem_de_erro invalid 'mensagem_de_erro_FOR_DEBUG_PURPOSE'
+                exit 1
+                ;;
+        esac
+    else
+        mensagem_de_erro empty 'mensagem_de_erro_FOR_DEBUG_PURPOSE'
+        exit 1
+    fi
+}
+
 #Tratando argumentos recebidos
-if [ $# ]; then
+if [ $# -gt 0 ]; then
     if [ "$1" == "--only" ]; then
         shift
     else
@@ -28,13 +49,13 @@ while [ $# -gt 0 ]; do
                         echo 'Pascoal'
                         ;;
                     *)
-                        echo 'ERROR: "--theme" invalid argument.'
+                        mensagem_de_erro invalid ${1}
                         exit 1
                         ;;
                 esac
                 shift
             else
-                echo 'ERROR: "--theme" requires a non-empty option argument.'
+                mensagem_de_erro empty ${1}
                 exit 1
             fi
             ;;
@@ -49,7 +70,7 @@ while [ $# -gt 0 ]; do
                         echo 'social'
                         ;;
                     *)
-                        echo 'ERROR: "--with-optional" invalid argument.'
+                        mensagem_de_erro invalid ${1}
                         exit 1
                         ;;
                 esac
@@ -69,13 +90,13 @@ while [ $# -gt 0 ]; do
                         echo 'amd'
                         ;;
                     *)
-                        echo 'ERROR: "--gpu" invalid argument.'
+                        mensagem_de_erro invalid ${1}
                         exit 1
                         ;;
                 esac
                 shift
             else
-                echo 'ERROR: "--gpu" requires a non-empty option argument.'
+                mensagem_de_erro empty ${1}
                 exit 1
             fi
             ;;
@@ -99,18 +120,18 @@ while [ $# -gt 0 ]; do
                         echo '@xfce-desktop-environment / LightDM'
                         ;;
                     *)
-                        echo 'ERROR: "--desktop-environment" invalid argument.'
+                        mensagem_de_erro invalid ${1}
                         exit 1
                         ;;
                 esac
                 shift
             else
-                echo 'ERROR: "--desktop-environment" requires a non-empty option argument.'
+                mensagem_de_erro empty ${1}
                 exit 1
             fi
             ;;
         *)
-            echo "ERROR: \"${1}\" invalid argument."
+            mensagem_de_erro invalid ${1}
             exit 1
             ;;
     esac
