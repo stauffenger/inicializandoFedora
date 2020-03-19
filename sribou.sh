@@ -33,6 +33,7 @@ function change_desktop_environment () {
     select_display_manager ${2}
     local displayManager_2=$displayManager
     dnf swap ${displayManager_1} ${displayManager_2}
+    systemctl enable ${displayManager_2}
 }
 
 function select_display_manager () {
@@ -103,28 +104,29 @@ function install_programs () {
             dnf install -yq code nano rabbitvcs* sublime-text codeblocks pgadmin4 blender npm golang
             dnf groupinstall -yq 'PostgreSQL Database Server 10 PGDG' --with-optional
 
-            echo 'Inicializando a configuração Postgres 10'
-            /usr/pgsql-10/bin/postgresql-10-setup initdb
-            systemctl enable postgresql-10
-            systemctl start postgresql-10
-            systemctl start httpd 
-            systemctl enable httpd
-            cp ./exempl /etc/httpd/conf.d/pgadmin4.conf
-            systemctl restart httpd
-            mkdir -p /var/lib/pgadmin4/ /var/log/pgadmin4/
-            echo "LOG_FILE = '/var/log/pgadmin4/pgadmin4.log'
-            SQLITE_PATH = '/var/lib/pgadmin4/pgadmin4.db'
-            SESSION_DB_PATH = '/var/lib/pgadmin4/sessions'
-            STORAGE_DIR = '/var/lib/pgadmin4/storage'" >> /usr/lib/python3.7/site-packages/pgadmin4-web/config_distro.py
-            python3 /usr/lib/python3.7/site-packages/pgadmin4-web/setup.py
-            chown -R apache:apache /var/lib/pgadmin4 /var/log/pgadmin4
-            semanage fcontext -a -t httpd_sys_rw_content_t "/var/lib/pgadmin4(/.*)?"
-            semanage fcontext -a -t httpd_sys_rw_content_t "/var/log/pgadmin4(/.*)?"
-            restorecon -R /var/lib/pgadmin4/
-            restorecon -R /var/log/pgadmin4/
-            systemctl restart httpd
-            firewall-cmd --permanent --add-service=http
-            firewall-cmd --reload
+            #echo 'Inicializando a configuração Postgres 10'
+            #/usr/pgsql-10/bin/postgresql-10-setup initdb
+            #systemctl enable postgresql-10
+            #systemctl start postgresql-10
+            #systemctl start httpd 
+            #systemctl enable httpd
+            #cp ./exempl /etc/httpd/conf.d/pgadmin4.conf
+            #systemctl restart httpd
+            #mkdir -p /var/lib/pgadmin4/ /var/log/pgadmin4/
+            #echo "LOG_FILE = '/var/log/pgadmin4/pgadmin4.log'
+            #SQLITE_PATH = '/var/lib/pgadmin4/pgadmin4.db'
+            #SESSION_DB_PATH = '/var/lib/pgadmin4/sessions'
+            #STORAGE_DIR = '/var/lib/pgadmin4/storage'" >> /usr/lib/python3.7/site-packages/pgadmin4-web/config_distro.py
+            #python3 /usr/lib/python3.7/site-packages/pgadmin4-web/setup.py
+            #chown -R apache:apache /var/lib/pgadmin4 /var/log/pgadmin4
+            #semanage fcontext -a -t httpd_sys_rw_content_t "/var/lib/pgadmin4(/.*)?"
+            #semanage fcontext -a -t httpd_sys_rw_content_t "/var/log/pgadmin4(/.*)?"
+            #restorecon -R /var/lib/pgadmin4/
+            #restorecon -R /var/log/pgadmin4/
+            #systemctl restart httpd
+            #firewall-cmd --permanent --add-service=http
+            #firewall-cmd --reload
+            #### FIM CONFIGURAÇÃO POSTGRES COMENTADO ENQUANTO NÃO FUNCIONA
             
             #Instalando programas via npm
             npm i -g npm
