@@ -102,7 +102,7 @@ echo 'Instalando drivers PostgreSQL Server 12';
 dnf groupinstall -yq 'PostgreSQL Database Server 10 PGDG' --with-optional;
 
 echo 'Instalando programas via dnf';
-dnf install -yq telegram-desktop code postgresql-server postgresql-contrib java-1.8.0-openjdk java-11-openjdk stacer nano htop fira-code-fonts flat-remix-theme flat-remix-*-theme system-config-language sublime-text numlockx krita pgadmin4-desktop-gnome vlc* gimp blender npm golang steam*;
+dnf install -yq telegram-desktop code postgresql-server postgresql-contrib java-1.8.0-openjdk java-11-openjdk stacer nano htop fira-code-fonts flat-remix-theme flat-remix-*-theme system-config-language sublime-text numlockx krita pgadmin3 vlc* gimp blender npm golang steam*;
 
 echo 'Startando o postgres';
 systemctl enable postgresql;
@@ -131,8 +131,10 @@ wget -c https://mega.nz/linux/MEGAsync/Fedora_$(rpm -E %fedora)/x86_64/nautilus-
 
 wget -c https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm;
 
+wget -c https://dbeaver.io/files/dbeaver-ce-latest-stable.x86_64.rpm;
+
 echo 'Instalando Mega e Google Chrome... ';
-dnf install -yq megasync-Fedora_$(rpm -E %fedora).x86_64.rpm nemo-megasync-Fedora_$(rpm -E %fedora).x86_64.rpm google-chrome-stable_current_x86_64.rpm;
+dnf install -yq megasync-Fedora_$(rpm -E %fedora).x86_64.rpm nemo-megasync-Fedora_$(rpm -E %fedora).x86_64.rpm google-chrome-stable_current_x86_64.rpm dbeaver-ce-latest-stable.x86_64.rpm;
 
 
 echo 'Instalando Tema Terminal';
@@ -146,18 +148,21 @@ echo 'Configurando VS Code';
 su -l $USER
 code --install-extension teabyii.ayu ;
 code --install-extension dbaeumer.vscode-eslint ;
-code --install-extension rvest.vs-code-prettier-eslint ;
+code --install-extension esbenp.prettier-vscode ;
 code --install-extension ms-python.python;
+code --install-extension vscode-icons-team.vscode-icons;
 
 echo '{ 
-	"workbench.iconTheme": "ayu",
+	"workbench.iconTheme": "vscode-icons",
 	 "workbench.colorTheme": "Ayu Mirage",
 	  "editor.fontFamily": "Fira Code Retina",
 	  "editor.formatOnType": true,
 	  "editor.fontLigatures": true,
 	  "explorer.confirmDelete": false,
 	  "editor.formatOnSave": true,
-	  "prettier.eslintIntegration": true
+	  "prettier.eslintIntegration": true,
+	  "editor.defaultFormatter": "esbenp.prettier-vscode",
+	  "[javascript]": {"editor.defaultFormatter": "esbenp.prettier-vscode"},
 	  }' > /home/$USER/.config/Code/User/settings.json;
 
 echo 'Fim do Script Inicializando Fedora';

@@ -7,6 +7,13 @@ $ system-config-language
 ```
 
 ## Configurando vscode
+* VS Code sendo configurado automaticamente
+	* Tema
+		* Ayu Mirage
+	* Fonte
+		* Fira Code Retina
+	* Extensões 
+		
 ```shell
 $ code --install-extension teabyii.ayu dbaeumer.vscode-eslint rvest.vs-code-prettier-eslint ms-python.python
 
