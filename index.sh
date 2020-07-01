@@ -141,7 +141,7 @@ echo 'Instalando Tema Terminal';
 git clone https://github.com/Bash-it/bash-it.git /home/$USER/.bash-it/;
 chmod +x /home/$USER/.bash-it/install.sh;
 echo 'y' | sh /home/$USER/.bash-it/install.sh;
-cp $bashrc /home/$USER/.bashrc ;
+echo $bashrc >> /home/$USER/.bashrc ;
 cp /home/$USER/.bashrc /root/.bashrc ;
 
 echo 'Configurando VS Code';
