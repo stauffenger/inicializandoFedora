@@ -20,9 +20,9 @@ rpm --import https://packages.microsoft.com/keys/microsoft.asc;
 sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo';
 
 #nvidia(negative 17)
-#dnf config-manager --add-repo=https://negativo17.org/repos/fedora-nvidia.repo;
+dnf config-manager --add-repo=https://negativo17.org/repos/fedora-nvidia.repo;
 
-dnf check-update;
+dnf upgrade -yq;
 
 #add flatpak repo
 sudo dnf install -yq flatpak
@@ -31,35 +31,19 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 #install programs
 
 #nivida driver
-#echo 'Instalando drivers Nvidia';
-#dnf install -yq nvidia-driver nvidia-driver-libs.i686 nvidia-settings akmod-nvidia cuda nvidia-driver-cuda --allowerasing --best ;
+echo 'Instalando drivers Nvidia';
+dnf install -yq nvidia-driver nvidia-driver-libs.i686 nvidia-settings akmod-nvidia cuda nvidia-driver-cuda --allowerasing --best ;
 
-echo 'Instalando programas via dnf';
-dnf install -yq telegram-desktop code stacer nano fira-code-fonts xorg-x11-drv-amdgpu xorg-x11-drv-geode flat-remix-theme flat-remix-*-theme rabbitvcs* system-config-language sublime-text numlockx codeblocks krita pgadmin3 pgadmin4 vlc* gimp blender npm golang steam*;
+echo 'Instalando drivers PostgreSQL Server 12';
 dnf groupinstall -yq 'PostgreSQL Database Server 10 PGDG' --with-optional;
 
-echo 'Inicializando a configuração Postgres 10';
-/usr/pgsql-10/bin/postgresql-10-setup initdb;
-systemctl enable postgresql-10;
-systemctl start postgresql-10;
-systemctl start httpd; 
-systemctl enable httpd;
-cp ./exempl /etc/httpd/conf.d/pgadmin4.conf;
-systemctl restart httpd;
-mkdir -p /var/lib/pgadmin4/ /var/log/pgadmin4/;
-echo "LOG_FILE = '/var/log/pgadmin4/pgadmin4.log'
-SQLITE_PATH = '/var/lib/pgadmin4/pgadmin4.db'
-SESSION_DB_PATH = '/var/lib/pgadmin4/sessions'
-STORAGE_DIR = '/var/lib/pgadmin4/storage'" >> /usr/lib/python3.7/site-packages/pgadmin4-web/config_distro.py;
-python3 /usr/lib/python3.7/site-packages/pgadmin4-web/setup.py;
-chown -R apache:apache /var/lib/pgadmin4 /var/log/pgadmin4;
-semanage fcontext -a -t httpd_sys_rw_content_t "/var/lib/pgadmin4(/.*)?";
-semanage fcontext -a -t httpd_sys_rw_content_t "/var/log/pgadmin4(/.*)?";
-restorecon -R /var/lib/pgadmin4/;
-restorecon -R /var/log/pgadmin4/;
-systemctl restart httpd;
-firewall-cmd --permanent --add-service=http;
-firewall-cmd --reload;
+echo 'Instalando programas via dnf';
+dnf install -yq telegram-desktop code postgresql-server postgresql-contrib java-1.8.0-openjdk java-11-openjdk stacer nano htop fira-code-fonts flat-remix-theme flat-remix-*-theme system-config-language sublime-text numlockx krita pgadmin4-desktop-gnome vlc* gimp blender npm golang steam*;
+
+echo 'Startando o postgres';
+systemctl enable postgresql;
+systemctl start postgresql;
+postgresql-setup --initdb --unit postgresql;
 
 echo 'Instalando programas via npm';
 npm i -g npm;
@@ -77,21 +61,41 @@ flatpak install -y flathub com.wps.Office --noninteractive;
 flatpak install -y flathub com.google.AndroidStudio --noninteractive;
 
 echo 'Iniciando download de Google Chrome';
-#wget -c https://mega.nz/linux/MEGAsync/Fedora_31/x86_64/megasync-Fedora_31.x86_64.rpm ;
+wget -c https://mega.nz/linux/MEGAsync/Fedora_$(rpm -E %fedora)/x86_64/megasync-Fedora_$(rpm -E %fedora).x86_64.rpm ;
 
-#wget -c https://mega.nz/linux/MEGAsync/Fedora_31/x86_64/nemo-megasync-Fedora_31.x86_64.rpm;
+wget -c https://mega.nz/linux/MEGAsync/Fedora_$(rpm -E %fedora)/x86_64/nautilus-megasync-Fedora_$(rpm -E %fedora).x86_64.rpm;
 
 wget -c https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm;
 
 echo 'Instalando Mega e Google Chrome... ';
-#dnf install -yq megasync-Fedora_31.x86_64.rpm nemo-megasync-Fedora_31.x86_64.rpm google-chrome-stable_current_x86_64.rpm;
-dnf install -yq google-chrome-stable_current_x86_64.rpm;
+dnf install -yq megasync-Fedora_$(rpm -E %fedora).x86_64.rpm nemo-megasync-Fedora_$(rpm -E %fedora).x86_64.rpm google-chrome-stable_current_x86_64.rpm;
+
 
 echo 'Instalando Tema Terminal';
 git clone https://github.com/Bash-it/bash-it.git /home/$USER/.bash-it/;
 chmod +x /home/$USER/.bash-it/install.sh;
 echo 'y' | sh /home/$USER/.bash-it/install.sh;
 cp ./bashrc /home/$USER/.bashrc ;
-cp ./bashrc /root/.bashrc ;
+cp /home/$USER/.bashrc /root/.bashrc ;
 
-echo 'Fim do Script Inicializando Fedora'
+echo 'Configurando VS Code';
+su -l $USER
+code --install-extension teabyii.ayu ;
+code --install-extension dbaeumer.vscode-eslint ;
+code --install-extension rvest.vs-code-prettier-eslint ;
+code --install-extension ms-python.python;
+
+echo '{ 
+	"workbench.iconTheme": "ayu",
+	 "workbench.colorTheme": "Ayu Mirage",
+	  "editor.fontFamily": "Fira Code Retina",
+	  "editor.formatOnType": true,
+	  "editor.fontLigatures": true,
+	  "explorer.confirmDelete": false,
+	  "editor.formatOnSave": true,
+	  "prettier.eslintIntegration": true
+	  }' > /home/$USER/.config/Code/User/settings.json;
+
+echo 'Fim do Script Inicializando Fedora';
+echo 'Lembre de configurar as permissões do postgres -> README: Documentação de configuração do Fedora';
+echo 'Bye e bom uso :D';

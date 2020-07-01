@@ -8,7 +8,7 @@ $ system-config-language
 
 ## Configurando vscode
 ```shell
-$ code --install-extension teabyii.ayu 
+$ code --install-extension teabyii.ayu dbaeumer.vscode-eslint rvest.vs-code-prettier-eslint ms-python.python
 
 $ echo '{ 
 	"workbench.iconTheme": "ayu",
@@ -16,7 +16,9 @@ $ echo '{
 	  "editor.fontFamily": "Fira Code Retina",
 	  "editor.formatOnType": true,
 	  "editor.fontLigatures": true,
-	  "explorer.confirmDelete": false
+	  "explorer.confirmDelete": false,
+	  "editor.formatOnSave": true,
+	  "prettier.eslintIntegration": true
 	  }' > /home/$USER/.config/Code/User/settings.json
 ```
 ## Configurando Subllime Text
