@@ -124,6 +124,9 @@ flatpak install -y flathub com.wps.Office --noninteractive;
 
 flatpak install -y flathub com.google.AndroidStudio --noninteractive;
 
+flatpak install -y flathub io.dbeaver.DBeaverCommunity --noninteractive;
+flatpak install -y flathub io.dbeaver.DBeaverCommunity.Client.pgsql --noninteractive;
+
 echo 'Iniciando download de Google Chrome';
 wget -c https://mega.nz/linux/MEGAsync/Fedora_$(rpm -E %fedora)/x86_64/megasync-Fedora_$(rpm -E %fedora).x86_64.rpm ;
 
@@ -131,10 +134,10 @@ wget -c https://mega.nz/linux/MEGAsync/Fedora_$(rpm -E %fedora)/x86_64/nautilus-
 
 wget -c https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm;
 
-wget -c https://dbeaver.io/files/dbeaver-ce-latest-stable.x86_64.rpm;
+#wget -c https://dbeaver.io/files/dbeaver-ce-latest-stable.x86_64.rpm;
 
 echo 'Instalando Mega e Google Chrome... ';
-dnf install -yq megasync-Fedora_$(rpm -E %fedora).x86_64.rpm nemo-megasync-Fedora_$(rpm -E %fedora).x86_64.rpm google-chrome-stable_current_x86_64.rpm dbeaver-ce-latest-stable.x86_64.rpm;
+dnf install -yq megasync-Fedora_$(rpm -E %fedora).x86_64.rpm nemo-megasync-Fedora_$(rpm -E %fedora).x86_64.rpm google-chrome-stable_current_x86_64.rpm; # dbeaver-ce-latest-stable.x86_64.rpm;
 
 
 echo 'Instalando Tema Terminal';
