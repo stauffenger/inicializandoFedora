@@ -49,7 +49,8 @@ echo 'Instalando Tema no bash';
 git clone https://github.com/Bash-it/bash-it.git /home/$iAm/.bash-it/;
 chmod +x /home/$iAm/.bash-it/install.sh;
 echo 'y' | sh /home/$iAm/.bash-it/install.sh;
-echo $bashrc >> /home/$iAm/.bashrc ;
+
+sudo echo $bashrc >> /home/$iAm/.bashrc ;
 sudo cp /home/$iAm/.bashrc /root/.bashrc ;
 
 sudo ./installer.sh;
