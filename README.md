@@ -1,34 +1,58 @@
 # inicializandoFedora
-um shell script que já configura tudo que preciso no fedora.
 
-Após a execução do script executar o comando abaixo, selecionar português(Brasil) e clicar em 'ok'.
+Um shell script que já configura tudo que preciso no fedora.
+Ele é bem pessoal, então sugiro que antes de rodar dê um molhada no que ele instalando.
+
+## Como Executar:
+
 ```shell
+# Executar sem superusuario. O script esta encarregado de elevar-se (Por isso fica atento, ele pedirá senha)
+$ ./index.sh
+
+# Após a execução do script executar o comando abaixo, selecionar português(Brasil) e clicar em 'ok'.
 $ system-config-language
 ```
 
-## Configurando vscode
-* VS Code sendo configurado automaticamente
-	* Tema
-		* Ayu Mirage
-	* Fonte
-		* Fira Code Retina
-	* Extensões 
-		
-```shell
-$ code --install-extension teabyii.ayu dbaeumer.vscode-eslint rvest.vs-code-prettier-eslint ms-python.python
+### Configurando tema do bash
 
-$ echo '{ 
-	"workbench.iconTheme": "ayu",
-	 "workbench.colorTheme": "Ayu Mirage",
-	  "editor.fontFamily": "Fira Code Retina",
-	  "editor.formatOnType": true,
-	  "editor.fontLigatures": true,
-	  "explorer.confirmDelete": false,
-	  "editor.formatOnSave": true,
-	  "prettier.eslintIntegration": true
-	  }' > /home/$USER/.config/Code/User/settings.json
+Os temas aplicaveis no bash são os temas presentes na [Wiki](https://github.com/Bash-it/bash-it/wiki/Themes), é uma lista extensa de temas possiveis.
+Basta mudar o valor da variável yourTheme para o nome do tema que deseja, e o script se encarregará do resto.
+
+### Configurando vscode
+
+- VS Code sendo configurado automaticamente com:
+  - Tema:
+    - Ayu Mirage
+  - Fonte:
+    - Fira Code Retina
+  - Extensões:
+    - EsLint (dbaeumer.vscode-eslint)
+    - Prettier (esbenp.prettier-vscode)
+    - Python (ms-python.python)
+    - Color Highlight (naumovs.color-highlight)
+
+> Configuração no settings.json
+
+```json
+{
+  "workbench.iconTheme": "vscode-icons",
+  "workbench.colorTheme": "Ayu Mirage",
+  "editor.fontFamily": "Fira Code Retina",
+  "editor.formatOnType": true,
+  "explorer.compactFolders": false,
+  "editor.fontLigatures": true,
+  "explorer.confirmDelete": false,
+  "editor.formatOnSave": true,
+  "prettier.eslintIntegration": true,
+  "prettier.singleQuote": true,
+  "[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" }
+}
 ```
-## Configurando Subllime Text
+
+### Configurando Subllime Text
+
+A Configuração do Sublime Text é manual.
+
 > Instale primeiramente o Package Control e o tema Ayu pelo Package Control
 
 ```shell
@@ -45,4 +69,8 @@ $ echo '{
 }' > /home/$USER/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
 ```
 
->[Documentação do Postgres](https://www.postgresql.org/download/linux/redhat/, 'https://www.postgresql.org/') pro Fedora e a [Documentação de configuração do Fedora](https://fedoraproject.org/wiki/PostgreSQL#Configuration, 'https://fedoraproject.org/wiki/PostgreSQL#Configuration') e um link que me ajudou a configurar o [pgadmin4](https://computingforgeeks.com/how-to-install-pgadmin-on-centos-fedora/, 'https://computingforgeeks.com/how-to-install-pgadmin-on-centos-fedora/')
+### Configurando o Postgres
+
+Particulamente eu gosto de seguir a [Documentação de configuração do Fedora](https://fedoraproject.org/wiki/PostgreSQL#Configuration, 'https://fedoraproject.org/wiki/PostgreSQL#Configuration') para configurar o postgresql.
+
+Contudo como material complementar também existe a [Documentação do Postgres](https://www.postgresql.org/download/linux/redhat/, 'https://www.postgresql.org/').
