@@ -74,3 +74,13 @@ $ echo '{
 Particulamente eu gosto de seguir a [Documentação de configuração do Fedora](https://fedoraproject.org/wiki/PostgreSQL#Configuration, 'https://fedoraproject.org/wiki/PostgreSQL#Configuration') para configurar o postgresql.
 
 Contudo como material complementar também existe a [Documentação do Postgres](https://www.postgresql.org/download/linux/redhat/, 'https://www.postgresql.org/').
+
+### Configurando Android Studio
+
+É preciso configurar as licensas.
+
+> Após a execução do script -> abra o Android Studio -> configure a IDE -> Execute o comando abaixo
+
+```shell
+$ ~/Android/Sdk/cmdline-tools/latest/bin/./sdkmanager --licenses
+```

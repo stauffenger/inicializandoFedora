@@ -45,6 +45,10 @@ systemctl enable postgresql;
 systemctl start postgresql;
 postgresql-setup --initdb --unit postgresql;
 
+echo 'Configurando Java:';
+echo 1 | alternatives --config java;
+java --version
+
 echo 'Instalando programas via npm';
 npm i -g npm;
 npm i -g yarn;
