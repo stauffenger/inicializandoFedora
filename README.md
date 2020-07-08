@@ -1,7 +1,7 @@
 # inicializandoFedora
 
 Um shell script que já configura tudo que preciso no fedora.
-Ele é bem pessoal, então sugiro que antes de rodar dê um molhada no que ele instalando.
+Ele é bem pessoal, então sugiro que antes de rodar dê uma olhada no que ele está instalando.
 
 ## Como Executar:
 
