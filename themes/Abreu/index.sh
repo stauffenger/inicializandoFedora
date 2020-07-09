@@ -62,7 +62,8 @@ echo 'y' | sh /home/$iAm/.bash-it/install.sh;
 echo -e $bashrc > /home/$iAm/.bashrc ;
 sudo cp /home/$iAm/.bashrc /root/.bashrc ;
 
-sudo ./installer.sh;
+echo 'Instalando programas via dnf';
+sudo dnf install -yq fira-code-fonts flat-remix-theme flat-remix-*-theme;
 
 # A linha de comando abaixo serve para solucionar o problema que o react-native possui em o tamanho total de watches pelo sistema.
 # a linha altera o maximo de watches tanto para o usario quanto para o sistema
