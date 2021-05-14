@@ -39,8 +39,20 @@ function error_message () {
 }
 
 function change_desktop_environment () {
-    dnf swap @${1}-desktop-environment @${2}-desktop-environment
     #https://docs.fedoraproject.org/en-US/quick-docs/switching-desktop-environments/
+    if [ "${1}" == "gnome"]; then
+        dnf install @${2}-desktop-environment
+        dnf swap @workstation-product-environment @${2}-desktop-environment
+    else
+        if [ "${2}" == "gnome"]; then
+            dnf group install "GNOME"
+            dnf install @workstation-product-environment
+            dnf swap @${1}-desktop-environment @workstation-product-environment
+        else
+            dnf install @${2}-desktop-environment
+            dnf swap @${1}-desktop-environment @${2}-desktop-environment
+        fi
+    fi
     local displayManager=''
     select_display_manager ${1}
     local displayManager_1=$displayManager
